@@ -1,18 +1,19 @@
-# A description of what this class does
+# This class manage the /root/.aws/credentials file
 #
-# @summary A short summary of the purpose of this class
+# @summary This class manage the /root/.aws/credentials file
 #
-# @example
-#   include awscredentials
+# @param awsprofiles
+#   Hash of api_keys
 class awscredentials (
   Hash    $awsprofiles = {},
 ) {
 
-  # Create the mount point
+  # Create the directory
   exec { '/usr/bin/mkdir -p /root/.aws':
     unless => ['/usr/bin/test -d /root/.aws']
   }
 
+  # Fill the credentials file
   concat {
     '/root/.aws/credentials':
     owner   => 'root',
